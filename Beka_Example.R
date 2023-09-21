@@ -10,7 +10,8 @@ head(fakedata)
 
 #crate a histogram, assigning it to an object of plot
 myplot<-ggplot(fakedata, aes(x = value)) + 
-  geom_histogram()
+  geom_histogram()+
+  theme_bw()
 
 #look at it
 myplot
