@@ -22,4 +22,5 @@ ggsave(plot = myplot,
        device = "tiff",
        dpi = 400)
 
-#Bailey has entered the Code 
+#Bailey has entered the Code
+BaileyCat <- 5/10
