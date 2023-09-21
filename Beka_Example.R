@@ -1,5 +1,7 @@
 library(tidyverse)
 
+cats <- 5
+
 #create a pretend dataframe. I will save it as a tibble and work within the tidyverse.
 fakedata <- as_tibble(rnorm(100, mean = 67, sd = 4))
 
