@@ -1,6 +1,7 @@
 ## GOALS: 
 
 ## Read in data (Hydrology_UKEZC, in "data" folder of this project)
+#note: Bailey changed the headers because R didn't like importing Hydrology_UKEZC. Saved it in GitHub as "Hydrology_UKEZC_bk.csv". 
 
 
 ## Visualize daily discharge over time from 2001-2003, coloring the values which are "E" (estimated) vs those with no flags
