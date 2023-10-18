@@ -13,6 +13,7 @@
 library(tidyverse)
 library(lubridate)
 library(here())
+library(plotly)
 
 
 # Read in data ------------------------------------------------------------
@@ -33,7 +34,38 @@ hydro_01_03 <- hydro_data %>%
 
 summary(hydro_01_03$date)
 
-# 2001 - 2003 data --------------------------------------------------------
 
+# Visualize daily discharge over 2001 - 2003 -------------------------------------
 
+hydro_daily_discharge <- hydro_01_03 %>%
+  group_by(date) %>%
+  summarize(daily_discharge_avg = mean(Discharge_cfs))
+
+# Append daily discharge values to the full dataframe to retain the error flags. 
+# Note that error flags apply to 15-minute samples, not the daily averages. Will need to think through that!
+hydro_withaverages <- left_join(hydro_01_03, hydro_daily_discharge,
+                  by = join_by(date))
+
+# Plotting all 2001 - 2003 data, coloring points by the Flag Value
+# Not separating by year yet
+testplot <- ggplot(hydro_withaverages)+
+  geom_point(aes(x = CollectDate_UTC,
+                 y = daily_discharge_avg,
+                 color = as.factor(Flag_StageQ)))
+
+# Creating a dataframe with fake dates 
+hydro_spoofeddates <- hydro_withaverages %>%
+  mutate(monthday = format(as.Date(date, format="%Y-%m-%d"),"%m-%d"),
+         year = format(as.Date(date, format="%Y-%m-%d"),"%Y"),
+         fakedate = ymd(paste0("1492-", monthday)))
+
+# Plotting data on a shared 1-year x-axis
+hydroplot <- ggplot(hydro_spoofeddates)+
+  geom_line(aes(x = fakedate,
+                y = daily_discharge_avg,
+                color = year))+
+  geom_point(aes(x = fakedate,
+                y = daily_discharge_avg,
+                color = as.factor(Flag_StageQ),
+                size = as.factor(Flag_StageQ)))
 
