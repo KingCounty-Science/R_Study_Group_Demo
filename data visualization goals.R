@@ -53,6 +53,10 @@ testplot <- ggplot(hydro_withaverages)+
                  y = daily_discharge_avg,
                  color = as.factor(Flag_StageQ)))
 
+
+
+# Plot data on a shared 1-year xaxis --------------------------------------
+
 # Creating a dataframe with fake dates 
 hydro_spoofeddates <- hydro_withaverages %>%
   mutate(monthday = format(as.Date(date, format="%Y-%m-%d"),"%m-%d"),
