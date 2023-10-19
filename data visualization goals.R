@@ -73,3 +73,4 @@ hydroplot <- ggplot(hydro_spoofeddates)+
                 color = as.factor(Flag_StageQ),
                 size = as.factor(Flag_StageQ)))
 
+ggplotly(hydroplot)
