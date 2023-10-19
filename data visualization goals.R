@@ -64,5 +64,5 @@ testplot <- ggplot(hydro_withaverages)+
 1+1
 2+2
 
-cool_person = "Greg"
+cool_person = "Nicholas Cage"
 
