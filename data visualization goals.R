@@ -78,7 +78,3 @@ hydroplot <- ggplot(hydro_spoofeddates)+
 
 ggplotly(hydroplot)
 
-
-# Testing adding stuff to the Greg_gerG branch (which should not e --------
-
-1+1
