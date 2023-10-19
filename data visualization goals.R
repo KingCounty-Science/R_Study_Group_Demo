@@ -88,3 +88,10 @@ hydroplot <- ggplot(hydro_spoofeddates)+
                 color = as.factor(Flag_StageQ),
                 size = as.factor(Flag_StageQ)))
 
+
+
+# Testing conflicts -------------------------------------------------------
+
+1+1
+2+2
+
