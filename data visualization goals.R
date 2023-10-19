@@ -22,7 +22,7 @@ library(plotly)
 
 # Adding notgreg_ plus some additional code to the main branch of "data visualization goals.R" so we can see how new code + code changes work. 
 
-notgreg_hydro_data <- read_csv(here("Hydrology_UKEZC_bk.csv")) %>%
+hydro_data <- read_csv(here("Hydrology_UKEZC_bk.csv")) %>%
   mutate(CollectDate_UTC = mdy_hm(CollectDate_UTC),
         `Collect Date_PDT` = mdy_hm(`Collect Date_PDT`),
         date = date(`Collect Date_PDT`))
@@ -31,11 +31,11 @@ notgreg_hydro_data <- read_csv(here("Hydrology_UKEZC_bk.csv")) %>%
 summary(notgreg_hydro_data$CollectDate_UTC)
 
 # Creating seperate dataframe for 2001 - 2003 data
-notgreg_hydro_01_03 <- hydro_data %>%
+hydro_01_03 <- hydro_data %>%
   filter(date >= mdy("1-1-2001"),
          date < mdy("1-1-2004"))
 
-summary(notgreg_hydro_01_03$date)
+summary(hydro_01_03$date)
 
 
 # Visualize daily discharge over 2001 - 2003 -------------------------------------
