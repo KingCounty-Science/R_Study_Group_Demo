@@ -56,37 +56,6 @@ testplot <- ggplot(hydro_withaverages)+
                  y = daily_discharge_avg,
                  color = as.factor(Flag_StageQ)))
 
-# visualize daily discharge with flags on estimated values
-# data were collected at 15-min intervals so we need to decide what we are interested in to summarize over day (e.g., mean, max, min). If we choose mean, and there are flags on some records but not others within the same day, we have to choose how to reflect that.
-
-daily_max_discharge <- notgreg_hydro_01_03 %>%
-  select(date, Discharge_cfs, Flag_StageQ) %>% 
-  group_by(date) %>% 
-  slice_max(Discharge_cfs, with_ties = FALSE) %>% 
-  ungroup()
-
-summary(daily_max_discharge)
-  
-  
-  
-
-# Plot data on a shared 1-year xaxis --------------------------------------
-
-# Creating a dataframe with fake dates 
-hydro_spoofeddates <- hydro_withaverages %>%
-  mutate(monthday = format(as.Date(date, format="%Y-%m-%d"),"%m-%d"),
-         year = format(as.Date(date, format="%Y-%m-%d"),"%Y"),
-         fakedate = ymd(paste0("1492-", monthday)))
-
-# Plotting data on a shared 1-year x-axis
-hydroplot <- ggplot(hydro_spoofeddates)+
-  geom_line(aes(x = fakedate,
-                y = daily_discharge_avg,
-                color = year))+
-  geom_point(aes(x = fakedate,
-                y = daily_discharge_avg,
-                color = as.factor(Flag_StageQ),
-                size = as.factor(Flag_StageQ)))
 
 
 
