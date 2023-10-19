@@ -57,3 +57,12 @@ testplot <- ggplot(hydro_withaverages)+
                  color = as.factor(Flag_StageQ)))
 
 
+
+
+# Testing conflicts -------------------------------------------------------
+
+1+1
+2+2
+
+cool_person = "Iris"
+
