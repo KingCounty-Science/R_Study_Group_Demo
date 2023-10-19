@@ -78,6 +78,9 @@ hydro_spoofeddates <- hydro_withaverages %>%
          year = format(as.Date(date, format="%Y-%m-%d"),"%Y"),
          fakedate = ymd(paste0("1492-", monthday)))
 
+hydro_spoofeddates_flagged <- hydro_spoofeddates %>%
+  filter(!is.na(Flag_StageQ))
+
 # Plotting data on a shared 1-year x-axis
 hydroplot <- ggplot(hydro_spoofeddates)+
   geom_line(aes(x = fakedate,
@@ -88,3 +91,9 @@ hydroplot <- ggplot(hydro_spoofeddates)+
                 color = as.factor(Flag_StageQ),
                 size = as.factor(Flag_StageQ)))
 
+ggplotly(hydroplot)
+
+
+# Testing adding stuff to the Greg_gerG branch (which should not e --------
+
+1+1
