@@ -1,6 +1,10 @@
 library(tidyverse)
 
-cats <- 9
+horses <- 20
+cows <- 15
+dogs <- 12
+pigs <- 16
+sheep <- 19
 
 #create a pretend dataframe. I will save it as a tibble and work within the tidyverse.
 fakedata <- as_tibble(rnorm(100, mean = 67, sd = 4))
@@ -23,4 +27,6 @@ ggsave(plot = myplot,
        device = "tiff",
        dpi = 400)
 
-#Bailey has entered the Code 
+
+BaileyCat <- 5/10
+
