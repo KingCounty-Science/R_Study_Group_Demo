@@ -22,6 +22,7 @@ library(anytime)
 # read in data and ignore column header reading errors (reads in as is)
 hydro <- read.csv("C:/GitHub/R_Study_Group_Demo/data/Hydrology_UKEZC.csv", check.names = F)
 hydro <- read.csv(here("data","Hydrology_UKEZC.csv"), check.names = F)
+hydro_b <- read_csv(here("data", "Hydrology_UKEZC_bk.csv"))
 
 # change headers to no spaces
 colnames(hydro)[2] <- "date_UTC"
