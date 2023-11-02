@@ -22,7 +22,12 @@ library(anytime)
 # read in data and ignore column header reading errors (reads in as is)
 # use here and "data" so we all can run code
 # hydro <- read.csv("C:/GitHub/R_Study_Group_Demo/data/Hydrology_UKEZC.csv", check.names = F)
-hydro <- read.csv(here("data","Hydrology_UKEZC.csv"), check.names = F)
+# change header names to remove spaces
+hydro <- read.csv(here("data","Hydrology_UKEZC.csv"), check.names = F,
+                  col.names = c("Site_Code","date_UTC","date_local","stage_ft",
+                                "discharge_cfs","discharge_qualifier",
+                                "turbidity_NTU","turbidity_qualifier",
+                                "temperature_C","temperature_qualifier"))
 hydro_b <- read_csv(here("Hydrology_UKEZC_bk.csv"))
 
 # change headers to no spaces
@@ -35,6 +40,8 @@ colnames(hydro)[7] <- "turbidity_NTU"
 colnames(hydro)[8] <- "turbidity_qualifier"
 colnames(hydro)[9] <- "temperature_C"
 colnames(hydro)[10] <- "temperature_qualifier"
+
+
 
 
 # Visualize daily discharge over 2001 - 2003 -------------------------------------
