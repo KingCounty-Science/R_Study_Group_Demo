@@ -22,7 +22,7 @@ library(anytime)
 # read in data and ignore column header reading errors (reads in as is)
 hydro <- read.csv("C:/GitHub/R_Study_Group_Demo/data/Hydrology_UKEZC.csv", check.names = F)
 hydro <- read.csv(here("data","Hydrology_UKEZC.csv"), check.names = F)
-hydro_b <- read_csv(here("data", "Hydrology_UKEZC_bk.csv"))
+hydro_b <- read_csv(here("Hydrology_UKEZC_bk.csv"))
 
 # change headers to no spaces
 colnames(hydro)[2] <- "date_UTC"
@@ -41,6 +41,10 @@ colnames(hydro)[10] <- "temperature_qualifier"
 ggplot(subset(hydro, discharge_qualifier == "P")) +
   geom_point(aes(x=date_local, y=discharge_cfs, color=discharge_qualifier)) +
   theme_bw()
+
+
+#visualize daily discharge over 2001-2003 using hydro_b
+
 
 
 # Visualize water temperature for 2022-2023 on a shared x-axis spa --------
