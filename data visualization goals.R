@@ -30,18 +30,8 @@ hydro <- read.csv(here("data","Hydrology_UKEZC.csv"), check.names = F,
                                 "temperature_C","temperature_qualifier"))
 hydro_b <- read_csv(here("Hydrology_UKEZC_bk.csv"))
 
-# change headers to no spaces
-colnames(hydro)[2] <- "date_UTC"
-colnames(hydro)[3] <- "date_local"
-colnames(hydro)[4] <- "stage_ft"
-colnames(hydro)[5] <- "discharge_cfs"
-colnames(hydro)[6] <- "discharge_qualifier"
-colnames(hydro)[7] <- "turbidity_NTU"
-colnames(hydro)[8] <- "turbidity_qualifier"
-colnames(hydro)[9] <- "temperature_C"
-colnames(hydro)[10] <- "temperature_qualifier"
-
-
+# # change header name
+# colnames(hydro)[2] <- "date_UTC"
 
 
 # Visualize daily discharge over 2001 - 2003 -------------------------------------
