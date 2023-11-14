@@ -35,11 +35,46 @@ hydro_b <- read_csv(here("Hydrology_UKEZC_bk.csv"))
 
 
 # Visualize daily discharge over 2001 - 2003 -------------------------------------
-
-ggplot(subset(hydro, discharge_qualifier == "P")) +
+#leaving this here for whomever had pre-populated this section
+ggplot(subset(hydro_dt, discharge_qualifier == "P")) +
   geom_point(aes(x=date_local, y=discharge_cfs, color=discharge_qualifier)) +
   theme_bw()
 
+#first check the date format of hydro (referencing greg's tutorial from a few months ago)
+#check date format of data
+str(hydro$date_local) #it is a character string
+
+#mutate to POSIXct and create a new column called "dt"
+hydro_dt <- hydro %>% 
+  mutate(dt = dmy_hm(date_local))
+
+str(hydro_dt$dt) #now it is POSIXct
+
+#now we just need the 01-03 data 
+hydro_dt_0103 <- hydro_dt %>% 
+  filter(dt > "2001-01-01 00:00:00" & 
+           dt < "2004-01-01 00:00:00") #(maybe cutoff Jan 1 2004?)
+
+## explore the data ####
+#first I want to know if there are any missing values for our y variable.
+hydro_dt_0103 %>% 
+  filter(is.na(discharge_cfs)) %>% 
+  count() #there are 35 missing cfs values
+
+#then I want to know if there are any missing values for our x variable.
+hydro_dt_0103 %>% 
+  filter(is.na(dt)) %>% 
+  count() #there not missing dates
+
+#then I want to know what the qualifiers are, and how many there are of each
+hydro_dt_0103 %>% 
+  group_by(discharge_qualifier) %>% 
+  summarise(qualifier_tally = n())
+## about 8k E values
+
+ggplot(hydro_dt_0103, aes(x=dt, y=discharge_cfs)) +
+  geom_point(aes(color = discharge_qualifier)) +
+  theme_bw()
 
 #visualize daily discharge over 2001-2003 using hydro_b
 
