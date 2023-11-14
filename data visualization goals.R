@@ -36,7 +36,7 @@ hydro_b <- read_csv(here("Hydrology_UKEZC_bk.csv"))
 
 # Visualize daily discharge over 2001 - 2003 -------------------------------------
 #leaving this here for whomever had pre-populated this section
-ggplot(subset(hydro_dt, discharge_qualifier == "P")) +
+ggplot(subset(hydro, discharge_qualifier == "P")) +
   geom_point(aes(x=date_local, y=discharge_cfs, color=discharge_qualifier)) +
   theme_bw()
 
@@ -44,7 +44,7 @@ ggplot(subset(hydro_dt, discharge_qualifier == "P")) +
 #check date format of data
 str(hydro$date_local) #it is a character string
 
-#mutate to POSIXct and create a new column called "dt"
+#mutate to POSIXct and create a new column called "dt" 
 hydro_dt <- hydro %>% 
   mutate(dt = dmy_hm(date_local))
 
@@ -53,18 +53,18 @@ str(hydro_dt$dt) #now it is POSIXct
 #now we just need the 01-03 data 
 hydro_dt_0103 <- hydro_dt %>% 
   filter(dt > "2001-01-01 00:00:00" & 
-           dt < "2004-01-01 00:00:00") #(maybe cutoff Jan 1 2004?)
+           dt < "2003-12-31 23:59:59") #(maybe cutoff Jan 1 2004?)
 
 ## explore the data ####
 #first I want to know if there are any missing values for our y variable.
 hydro_dt_0103 %>% 
   filter(is.na(discharge_cfs)) %>% 
-  count() #there are 35 missing cfs values
+  count() 
 
 #then I want to know if there are any missing values for our x variable.
 hydro_dt_0103 %>% 
   filter(is.na(dt)) %>% 
-  count() #there not missing dates
+  count() #there not missing time/dates (i.e., no cfs values missing a timestamp)
 
 #then I want to know what the qualifiers are, and how many there are of each
 hydro_dt_0103 %>% 
@@ -72,8 +72,28 @@ hydro_dt_0103 %>%
   summarise(qualifier_tally = n())
 ## about 8k E values
 
+#It seems there are two gaps that have estimated values.
 ggplot(hydro_dt_0103, aes(x=dt, y=discharge_cfs)) +
-  geom_point(aes(color = discharge_qualifier)) +
+  geom_point(aes(color = discharge_qualifier),
+             size = .75) + #reduced the size of the points
+  theme_bw() +
+  scale_color_manual(name='Discharge qualifier', #adding names manually to give our colors names and a legend title, and whatever colors we want.
+                     labels = c("collected", "estimated"),
+                     values=c("#5ab4ac", "#d8b365")) +
+  ylab("Discharge (cfs)") +
+  scale_x_datetime(name = "date",
+                   date_breaks = "3 months", #could be more or less
+                   minor_breaks = "1 month", #too many lines?
+                   date_labels = "%b %y") #there are lots of ways we could specify the display here: https://rdrr.io/r/base/strptime.html
+
+
+
+#alternative idea with lines. Is it OK to have lines between the main points or should all of it be points?
+ggplot(hydro_dt_0103, aes(x=dt, y=discharge_cfs)) +
+  geom_line() +
+  geom_point(data = hydro_dt_0103 %>% filter(discharge_qualifier == "E"), 
+             color = "orange",
+             size = .75) +
   theme_bw()
 
 #visualize daily discharge over 2001-2003 using hydro_b
