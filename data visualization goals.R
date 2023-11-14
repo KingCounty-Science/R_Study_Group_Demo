@@ -86,8 +86,6 @@ ggplot(hydro_dt_0103, aes(x=dt, y=discharge_cfs)) +
                    minor_breaks = "1 month", #too many lines?
                    date_labels = "%b '%y") #there are lots of ways we could specify the display here: https://rdrr.io/r/base/strptime.html
 
-
-
 #alternative idea with lines. Is it OK to have lines between the main points or should all of it be points?
 ggplot(hydro_dt_0103, aes(x=dt, y=discharge_cfs)) +
   geom_line() +
