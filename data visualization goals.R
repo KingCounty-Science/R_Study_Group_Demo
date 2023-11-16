@@ -7,7 +7,7 @@
 
 ## Visualize water temperature for 2022-2023 on a shared x-axis spanning the first to last day of the year
 
-rm (list=ls())
+rm (list=ls()) # clean environment
 
 # Setup -------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ library(tidyverse)
 library(lubridate)
 library(here())
 library(plotly)
-library(anytime)
+library(anytime) # I had no idea this package existed, TIL! 
 
 
 # Read in data ------------------------------------------------------------
@@ -94,7 +94,26 @@ ggplot(hydro_dt_0103, aes(x=dt, y=discharge_cfs)) +
              size = .75) +
   theme_bw()
 
+
+
 #visualize daily discharge over 2001-2003 using hydro_b
+
+# we don't have to do all the QA checking above again since hydro_b is identical data to hydro (except that it is in tibble format https://tibble.tidyverse.org), but I am going to do one additional QA and check for duplicates
+hydro_b %>% filter(duplicated(CollectDate_UTC)) # no duplicates found
+
+hydro_b %>% 
+  select(CollectDate_UTC, Discharge_cfs, Flag_StageQ) %>%  # these are the only columns I care about for this visualization
+  mutate(ReDate = mdy_hms(CollectDate_UTC)) %>%  # convert to dttm
+  mutate(eflag = case_when(
+    Flag_StageQ == "E" ~ "E", 
+    .default = "not E"
+  )) %>%
+  ggplot(aes(x = ReDate, y = Discharge_cfs)) +
+  geom_line() +
+  geom_point(data = ~subset(., eflag == "E"), 
+             color = "orange", 
+             size = 0.75) + 
+  theme_bw()
 
 
 
