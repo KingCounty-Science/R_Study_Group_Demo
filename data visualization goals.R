@@ -103,7 +103,8 @@ hydro_b %>% filter(duplicated(CollectDate_UTC)) # no duplicates found
 
 hydro_b %>% 
   select(CollectDate_UTC, Discharge_cfs, Flag_StageQ) %>%  # these are the only columns I care about for this visualization
-  mutate(ReDate = mdy_hms(CollectDate_UTC)) %>%  # convert to dttm
+  mutate(ReDate = mdy_hm(CollectDate_UTC)) %>%  # convert to dttm
+  filter(year(ReDate) %in% (2001:2003)) %>%
   mutate(eflag = case_when(
     Flag_StageQ == "E" ~ "E", 
     .default = "not E"
