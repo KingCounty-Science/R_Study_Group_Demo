@@ -11,4 +11,4 @@ Demo repository for the R Study Group
 - creating Shiny apps for user-friendly data exploration or visualization?
 - spatial analyses in R
 - getting help -Reprex
-- chat GPT for code help
+- chat GPT for code help (https://www.listendata.com/2023/05/chatgpt-in-r.html)
