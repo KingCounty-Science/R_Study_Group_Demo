@@ -10,3 +10,5 @@ Demo repository for the R Study Group
 - creating packages in R?
 - creating Shiny apps for user-friendly data exploration or visualization?
 - spatial analyses in R
+- getting help -Reprex
+- chat GPT for code help
