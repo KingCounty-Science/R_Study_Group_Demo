@@ -114,7 +114,12 @@ hydro_b %>%
   geom_point(data = ~subset(., eflag == "E"), 
              color = "orange", 
              size = 0.75) + 
-  theme_bw()
+  theme_bw() +
+  ylab("Discharge (cfs)") +
+  scale_x_datetime(name = "",
+                   date_breaks = "3 months", 
+                   minor_breaks = "1 month", 
+                   date_labels = "%b '%y")
 
 
 
@@ -123,3 +128,19 @@ hydro_b %>%
 
 
 
+
+
+## this is an Iris tangent unrelated to the rest of this script
+library(scales)
+test <- as.data.frame(list(x = c(0, 200,100), y = c(7500000,10000000,2000000)))
+
+ggplot(test, aes(x,y))
+
+as.data.frame(
+  list(x = c(0, 200, 100), 
+       y = c(7500000, 10000000, 2000000))) %>%
+  ggplot(aes(x, y)) +
+  geom_point() +
+  expand_limits(x = c(0, NA), y = c(0, NA)) +
+  # scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6))
+  scale_y_continuous(labels = label_number(scale = 1e-6, suffix = "M", accuracy = 1))
