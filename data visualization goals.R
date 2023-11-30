@@ -33,12 +33,16 @@ hydro_b <- read_csv(here("Hydrology_UKEZC_bk.csv"))
 # # change header name
 # colnames(hydro)[2] <- "date_UTC"
 
+#summary of data
+summary(hydro)
+
 
 # Visualize daily discharge over 2001 - 2003 -------------------------------------
 #leaving this here for whomever had pre-populated this section
-ggplot(subset(hydro, discharge_qualifier == "P")) +
+HydroPlot1<- ggplot(subset(hydro, discharge_qualifier == "P")) +
   geom_point(aes(x=date_local, y=discharge_cfs, color=discharge_qualifier)) +
   theme_bw()
+HydroPlot1
 
 #first check the date format of hydro (referencing greg's tutorial from a few months ago)
 #check date format of data
@@ -121,6 +125,28 @@ hydro_b %>%
                    minor_breaks = "1 month", 
                    date_labels = "%b '%y")
 
+#Bailey Taking hydro_b and messing with it
+hydro_b2 <- hydro_b %>% 
+  select(CollectDate_UTC, Discharge_cfs, Flag_StageQ) %>%  # these are the only columns I care about for this visualization
+  mutate(ReDate = mdy_hm(CollectDate_UTC)) %>%  # convert to dttm
+  filter(year(ReDate) %in% (2001:2003)) 
+
+%>%
+  mutate(eflag = case_when(
+    Flag_StageQ == "E" ~ "E", 
+    default = "not E"
+ 
+ggplot(hydro_b2, aes(x = ReDate, y = Discharge_cfs)) +
+      geom_line() +
+      geom_point(data = ~subset(eflag == "E"), 
+                 color = "orange", 
+                 size = 0.75) + 
+      theme_bw() +
+      ylab("Discharge (cfs)") +
+      scale_x_datetime(name = "",
+                       date_breaks = "3 months", 
+                       minor_breaks = "1 month", 
+                       date_labels = "%b '%y")   
 
 
 # Visualize water temperature for 2022-2023 on a shared x-axis spa --------
