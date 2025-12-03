@@ -14,7 +14,8 @@ head(fakedata)
 
 #crate a histogram, assigning it to an object of plot
 myplot<-ggplot(fakedata, aes(x = value)) + 
-  geom_histogram()
+  geom_histogram()+
+  theme_bw()
 
 #look at it
 myplot
@@ -30,3 +31,6 @@ ggsave(plot = myplot,
 What is this new stuff? More new stuff.
 
 #last attempt at new stuff
+
+BaileyCat <- 5/10
+
