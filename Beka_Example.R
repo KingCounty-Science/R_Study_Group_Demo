@@ -27,6 +27,10 @@ ggsave(plot = myplot,
        device = "tiff",
        dpi = 400)
 
+#Bailey has entered the Code 
+What is this new stuff? More new stuff.
+
+#last attempt at new stuff
 
 BaileyCat <- 5/10
 
